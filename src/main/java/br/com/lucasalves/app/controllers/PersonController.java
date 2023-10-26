@@ -19,22 +19,22 @@ public class PersonController {
         this.service = service;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<List<PersonVO>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PersonVO> findById(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = "application/json", produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PersonVO> create(@RequestBody PersonVO personVO) {
         return new ResponseEntity<>(service.create(personVO), HttpStatus.CREATED);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = "application/json", produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PersonVO> update(@RequestBody PersonVO personVO) {
         return new ResponseEntity<>(service.update(personVO), HttpStatus.NO_CONTENT);
     }
