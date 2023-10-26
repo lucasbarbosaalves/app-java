@@ -29,12 +29,12 @@ public class PersonController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = "application/json", produces = {"application/json", "application/xml", "application/x-yaml"})
+    @PostMapping(consumes = {"application/json", "application/xml", "application/x-yaml"}, produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PersonVO> create(@RequestBody PersonVO personVO) {
         return new ResponseEntity<>(service.create(personVO), HttpStatus.CREATED);
     }
 
-    @PutMapping(consumes = "application/json", produces = {"application/json", "application/xml", "application/x-yaml"})
+    @PutMapping(consumes = {"application/json", "application/xml", "application/x-yaml"}, produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PersonVO> update(@RequestBody PersonVO personVO) {
         return new ResponseEntity<>(service.update(personVO), HttpStatus.NO_CONTENT);
     }
