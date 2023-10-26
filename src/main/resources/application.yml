@@ -14,3 +14,7 @@ spring:
   flyway:
     locations: classpath:db/migration
 
+springdoc:
+  paths-to-match: /api/v1/**
+  swagger-ui:
+    use-root-path: true
