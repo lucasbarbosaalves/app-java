@@ -19,9 +19,9 @@ public class Book implements Serializable {
     @Column(nullable = false, length = 180)
     private String author;
 
-    @Column(name = "lauch_date", nullable = false)
+    @Column(name = "launch_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date lauchDate;
+    private Date launchDate;
 
     @Column(nullable = false)
     private Double price;
@@ -48,12 +48,12 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public Date getLauchDate() {
-        return lauchDate;
+    public Date getLaunchDate() {
+        return launchDate;
     }
 
-    public void setLauchDate(Date lauchDate) {
-        this.lauchDate = lauchDate;
+    public void setLaunchDate(Date lauchDate) {
+        this.launchDate = lauchDate;
     }
 
     public Double getPrice() {
