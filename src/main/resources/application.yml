@@ -3,7 +3,7 @@ cors:
 security:
   jwt:
     token:
-      secret-key: secret-key
+      secret-key: 53cr37
       expire-length: 3600000
 spring:
   datasource:
@@ -22,6 +22,8 @@ spring:
     locations: classpath:db/migration
 
 springdoc:
-  paths-to-match: /api/v1/**
+  paths-to-match:
+    - /auth/**
+    - /api/v1/**
   swagger-ui:
     use-root-path: true
