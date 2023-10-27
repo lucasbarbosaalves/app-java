@@ -6,6 +6,7 @@ import br.com.lucasalves.app.exceptions.ResourceNotFoundException;
 import br.com.lucasalves.app.mapper.DozerMapper;
 import br.com.lucasalves.app.model.Person;
 import br.com.lucasalves.app.repositories.PersonRespository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -68,6 +69,18 @@ public class PersonService {
 
         var vo =  DozerMapper.parseObject(repository.save(entity), PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+        return vo;
+    }
+    @Transactional // Necessário pois altera um dado no banco
+    public PersonVO disablePerson(Long id) {
+
+        logger.info("Disabling one person!");
+        repository.disablePerson(id);
+
+        var entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        var vo = DozerMapper.parseObject(entity, PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return vo;
     }
 

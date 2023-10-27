@@ -3,6 +3,7 @@ package br.com.lucasalves.app.data.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
+import jakarta.persistence.Column;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     private String lastName;
     private String address;
     private String gender;
+    private Boolean enabled;
 
     public PersonVO() {}
 
@@ -63,5 +65,13 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
