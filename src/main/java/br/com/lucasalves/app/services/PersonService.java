@@ -32,11 +32,24 @@ public class PersonService {
         this.assembler = assembler;
     }
 
-    public PagedModel<EntityModel<PersonVO>> findAll(Pageable pageable) {
+    public PagedModel<EntityModel<PersonVO>> findAll( Pageable pageable) {
 
         logger.info("Finding all people!");
 
         var personPage = repository.findAll(pageable);
+
+        var personsVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
+        personsVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+
+        Link link = linkTo(methodOn(PersonController.class)
+                .findAll(pageable.getPageNumber(),pageable.getPageSize(), "asc")).withSelfRel();
+        return assembler.toModel(personsVosPage, link);
+    }
+    public PagedModel<EntityModel<PersonVO>> findPersonsByName(String firstName, Pageable pageable) {
+
+        logger.info("Finding all people!");
+
+        var personPage = repository.findPersonsByName(firstName, pageable);
 
         var personsVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
         personsVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));

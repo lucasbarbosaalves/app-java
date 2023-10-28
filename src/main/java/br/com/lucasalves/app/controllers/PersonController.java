@@ -58,6 +58,34 @@ public class PersonController {
         return new ResponseEntity<>(service.findAll(pageable), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/findPersonsByName/{firstName}",produces = {"application/json", "application/xml", "application/x-yaml"})
+    @Operation(
+            summary = "Find people recorded by name",
+            description = "Find people recorded by name in the database",
+            tags = {"People"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Success", content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))),
+                    }),
+                    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+                    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
+            }
+    )
+    public ResponseEntity<PagedModel<EntityModel<PersonVO>>> findPersonsByName(
+            @PathVariable(value = "firstName") String firstName,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam (value = "size", defaultValue = "12") Integer size,
+            @RequestParam (value = "direction", defaultValue = "asc") String direction){
+
+        var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+
+        // sobrecarga com ordenação
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "firstName"));
+        return new ResponseEntity<>(service.findPersonsByName(firstName,pageable), HttpStatus.OK);
+    }
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
     @Operation(
             summary = "Find a person",
