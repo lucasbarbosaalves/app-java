@@ -26,11 +26,11 @@ jobs:
           cache: maven
           
       - name: Build Application JAR
-        working-directory: /app
+        working-directory: ./
         run: mvn clean package
       
       - name: Docker Compose build
-        working-directory: /app
+        working-directory: ./
         run: docker compose build 
 
       - name: Push To Docker Hub Container Registry
