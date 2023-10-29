@@ -4,7 +4,6 @@ on:
   push:
     branches: 
       - main
-      - development
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,12 +25,15 @@ jobs:
           cache: maven
           
       - name: Build Application JAR
-        working-directory: ./
+        working-directory: /
         run: mvn clean package -DskipTests
       
       - name: Docker Compose build
-        working-directory: ./
+        working-directory: /
         run: docker compose build 
+
+      - name: Copy Dependencies
+        run: mvn dependency:copy-dependencies -DoutputDirectory=./dependencies
 
       - name: Push To Docker Hub Container Registry
         run: 
