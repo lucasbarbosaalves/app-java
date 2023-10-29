@@ -3,15 +3,12 @@ package br.com.lucasalves.app.data.vo.security;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class AccountCredentialsVO implements Serializable {
+public class AccountCredentialsVO implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;
-
-    public AccountCredentialsVO() {
-    }
 
     public AccountCredentialsVO(String username, String password) {
         this.username = username;
