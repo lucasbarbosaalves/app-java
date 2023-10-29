@@ -25,11 +25,11 @@ jobs:
           cache: maven
           
       - name: Build Application JAR
-        working-directory: /
+        working-directory: ./
         run: mvn clean package -DskipTests
       
       - name: Docker Compose build
-        working-directory: /
+        working-directory: ./
         run: docker compose build 
 
       - name: Copy Dependencies
